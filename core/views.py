@@ -4,6 +4,7 @@ from rest_framework import permissions
 from rest_framework.authentication import TokenAuthentication
 from .serializers import RegisterSerializer
 from .tasks import send_welcome_email
+from rest_framework.authtoken.views import ObtainAuthToken
 
 # Public endpoint
 class PublicEndpoint(APIView):
@@ -47,3 +48,10 @@ class Register(APIView):
             }
             return Response(response_data, status=201)
         return Response(serializer.errors, status=400)
+
+# Login endpoint using DRF's built-in token auth
+class Login(ObtainAuthToken):
+    """
+    Provides a token to the user after verifying credentials.
+    """
+    pass
